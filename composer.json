@@ -1,0 +1,17 @@
+{
+    "name": "cspray/platelets",
+    "description": "",
+    "require": {
+        "php": ">=5.4",
+        "symfony/event-dispatcher": "2.5.*",
+        "zendframework/zend-escaper": "2.3.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.3.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Platelets\\": ["src/", "tests/"]
+        }
+    }
+}
