@@ -3,7 +3,7 @@
     "description": "",
     "require": {
         "php": ">=5.4",
-        "symfony/event-dispatcher": "2.5.*",
+        "symfony/event-dispatcher": "2.6.*",
         "zendframework/zend-escaper": "2.3.*"
     },
     "require-dev": {
