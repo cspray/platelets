@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "cspray/adhoc",
-            "version": "0.1.0",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cspray/adhoc.git",
-                "reference": "3dcfa33e6db0d9fc82f57e8c575d6f0c07a7e446"
+                "reference": "781ccb5e83fca448fdbb9fd103e5df44af9a7943"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cspray/adhoc/zipball/3dcfa33e6db0d9fc82f57e8c575d6f0c07a7e446",
-                "reference": "3dcfa33e6db0d9fc82f57e8c575d6f0c07a7e446",
+                "url": "https://api.github.com/repos/cspray/adhoc/zipball/781ccb5e83fca448fdbb9fd103e5df44af9a7943",
+                "reference": "781ccb5e83fca448fdbb9fd103e5df44af9a7943",
                 "shasum": ""
             },
             "require": {
@@ -37,7 +37,7 @@
                 "MIT"
             ],
             "description": "A library to create adhoc properties and methods.",
-            "time": "2015-08-17 00:22:43"
+            "time": "2015-08-21 22:29:23"
         },
         {
             "name": "symfony/event-dispatcher",
