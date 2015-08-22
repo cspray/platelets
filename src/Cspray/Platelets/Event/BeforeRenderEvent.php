@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * 
  * @license See LICENSE in source root
@@ -7,6 +9,6 @@
  * @since   1.0
  */
 
-namespace Platelets\Event;
+namespace Cspray\Platelets\Event;
 
 class BeforeRenderEvent extends RenderEvent {}

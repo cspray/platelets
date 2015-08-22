@@ -1,17 +1,30 @@
 {
     "name": "cspray/platelets",
     "description": "",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/cspray/phpunit-mock-objects"
+        }
+    ],
     "require": {
         "php": ">=5.4",
         "symfony/event-dispatcher": "2.6.*",
-        "zendframework/zend-escaper": "2.3.*"
+        "zendframework/zend-escaper": "2.3.*",
+        "cspray/adhoc": "~0.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.3.*"
+        "phpunit/phpunit": "4.7.*",
+        "phpunit/phpunit-mock-objects": "dev-master"
     },
     "autoload": {
         "psr-0": {
-            "Platelets\\": ["src/", "tests/"]
+            "Cspray\\Platelets\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "Cspray\\Platelets\\Test": "test/"
         }
     }
 }

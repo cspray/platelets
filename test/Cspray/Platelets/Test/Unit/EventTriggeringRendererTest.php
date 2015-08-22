@@ -7,62 +7,59 @@
  * @since   1.0
  */
 
-namespace Platelets\Unit;
+namespace Cspray\Platelets\Test\Unit;
 
-use PHPUnit_Framework_TestCase as UnitTestCase;
-use Platelets\EventTriggeringRenderer;
+use Cspray\Platelets\Renderer;
+use Cspray\Platelets\EventTriggeringRenderer;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use PHPUnit_Framework_TestCase as UnitTestCase;
 
 class EventTriggeringRendererTest extends UnitTestCase {
 
+    private function getMockRenderer(string $return = '') {
+        $mock = $this->getMock(Renderer::class);
+        $mock->expects($this->once())->method('render')->willReturn($return);
+        return $mock;
+    }
+
     public function testBeforeRenderEventTriggered() {
-        $mock = $this->getMock('Platelets\\Renderer');
         $dispatcher = new EventDispatcher();
         $actual = new \stdClass();
         $actual->eventInstance = null;
         $dispatcher->addListener(EventTriggeringRenderer::BEFORE_RENDER_EVENT, function($event) use($actual) {
             $actual->eventInstance = $event;
         });
-        $renderer = new EventTriggeringRenderer($mock, $dispatcher);
+        $renderer = new EventTriggeringRenderer($this->getMockRenderer(), $dispatcher);
         $renderer->render('some source');
 
-        $this->assertInstanceOf('Platelets\\Event\\BeforeRenderEvent', $actual->eventInstance);
-        $this->assertSame('', $actual->eventInstance->getRenderedOutput());
-        $this->assertSame($renderer, $actual->eventInstance->getRenderer());
+        $this->assertInstanceOf('Cspray\\Platelets\\Event\\BeforeRenderEvent', $actual->eventInstance);
     }
 
     public function testAfterRenderEventTriggered() {
-        $mock = $this->getMock('Platelets\\Renderer');
-        $mock->expects($this->once())->method('render')->willReturn('foobar');
         $dispatcher = new EventDispatcher();
         $actual = new \stdClass();
         $actual->eventInstance = null;
         $dispatcher->addListener(EventTriggeringRenderer::AFTER_RENDER_EVENT, function($event) use($actual) {
             $actual->eventInstance = $event;
         });
-        $renderer = new EventTriggeringRenderer($mock, $dispatcher);
+        $renderer = new EventTriggeringRenderer($this->getMockRenderer(), $dispatcher);
         $renderer->render('some source');
 
-        $this->assertInstanceOf('Platelets\\Event\\AfterRenderEvent', $actual->eventInstance);
-        $this->assertSame('foobar', $actual->eventInstance->getRenderedOutput());
-        $this->assertSame($renderer, $actual->eventInstance->getRenderer());
+        $this->assertInstanceOf('Cspray\\Platelets\\Event\\AfterRenderEvent', $actual->eventInstance);
     }
 
     public function testReturningRenderedValue() {
-        $mock = $this->getMock('Platelets\\Renderer');
-        $mock->expects($this->once())->method('render')->willReturn('foobar');
         $dispatcher = new EventDispatcher();
-        $renderer = new EventTriggeringRenderer($mock, $dispatcher);
+        $renderer = new EventTriggeringRenderer($this->getMockRenderer('foobar'), $dispatcher);
 
         $this->assertSame('foobar', $renderer->render('some source'));
     }
 
     public function testDecoratingRenderedOutputInAfterRenderEvent() {
-        $mock = $this->getMock('Platelets\\Renderer');
-        $mock->expects($this->once())->method('render')->willReturn('foobar');
+        $mock = $this->getMockRenderer('foobar');
         $dispatcher = new EventDispatcher();
         $dispatcher->addListener(EventTriggeringRenderer::AFTER_RENDER_EVENT, function($event) {
-            $event->setRenderedOutput($event->getRenderedOutput() . ' + called from event');
+            $event->setOutput($event->getOutput() . ' + called from event');
         });
         $renderer = new EventTriggeringRenderer($mock, $dispatcher);
         $text = $renderer->render('some source');

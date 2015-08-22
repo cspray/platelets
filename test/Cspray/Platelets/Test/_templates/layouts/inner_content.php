@@ -1,0 +1,1 @@
+<wrapper><?= $this->outlet ?></wrapper>

@@ -16,8 +16,8 @@ The current version is **0.1.0**.
 
 Platelets "Hello World" is a simple rendering process that's very common: render an outer layout with a piece of content rendered inside that layout. Since we imagine most applications that use Platelets to render HTML our example will also be HTML. Please note that you can use Platelets regardless of the type of text you're outputting.
 
-```php
-# /templates/layout.php
+### /templates/layout.php
+```
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,16 +32,22 @@ Platelets "Hello World" is a simple rendering process that's very common: render
         </article>
     </body>
 </html>
+```
 
-# /templates/hello_plates.php
+### /templates/hello_plates.php
+```
 <p>Hello <?= $who ?></p>
+```
 
 # and now bring it all together
+<?php
+
+
 
 $templatesDir = '/templates';
 $fileRenderer = new Platelets\FileRenderer($templatesDir);
 $twoStepRenderer = new Platelets\TwoStepRenderer($fileRenderer, 'layout');
-echo $twoStepRenderer->render('hello_plates', new RendererData(['who' => 'Platelets']));
+echo $twoStepRenderer->render('hello_plates', new AdhocContent(['who' => 'Platelets']));
 ```
 
 The above code will produce the following output:

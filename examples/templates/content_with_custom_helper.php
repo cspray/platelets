@@ -1,0 +1,1 @@
+This is going to <?= $this->customHelper($this->customHelperData) ?> and <?= $this->oneAfterConstruct($this->myVar) ?>.
