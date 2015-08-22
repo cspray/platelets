@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * 
  * @license See LICENSE in source root
@@ -7,7 +9,6 @@
  * @since   1.0
  */
 
-namespace Platelets\Exception;
-
+namespace Cspray\Platelets\Exception;
 
 class NotFoundException extends Exception {}

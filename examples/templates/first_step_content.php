@@ -1,1 +1,1 @@
-You can have <?= $dynamic ?> content in the first step too.
+You can have <?= $this->dynamic ?> content in the first step too.
