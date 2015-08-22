@@ -9,8 +9,7 @@
         }
     ],
     "require": {
-        "php": ">=5.4",
-        "zendframework/zend-escaper": "2.3.*",
+        "php": "~7.0",
         "cspray/adhoc": "~0.1"
     },
     "require-dev": {
