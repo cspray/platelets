@@ -11,7 +11,7 @@ namespace Cspray\Platelets\Test\Unit;
 
 use Cspray\Platelets\Renderer;
 use Cspray\Platelets\EventTriggeringRenderer;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use League\Event\Emitter;
 use PHPUnit_Framework_TestCase as UnitTestCase;
 
 class EventTriggeringRendererTest extends UnitTestCase {
@@ -23,7 +23,7 @@ class EventTriggeringRendererTest extends UnitTestCase {
     }
 
     public function testBeforeRenderEventTriggered() {
-        $dispatcher = new EventDispatcher();
+        $dispatcher = new Emitter();
         $actual = new \stdClass();
         $actual->eventInstance = null;
         $dispatcher->addListener(EventTriggeringRenderer::BEFORE_RENDER_EVENT, function($event) use($actual) {
@@ -36,7 +36,7 @@ class EventTriggeringRendererTest extends UnitTestCase {
     }
 
     public function testAfterRenderEventTriggered() {
-        $dispatcher = new EventDispatcher();
+        $dispatcher = new Emitter();
         $actual = new \stdClass();
         $actual->eventInstance = null;
         $dispatcher->addListener(EventTriggeringRenderer::AFTER_RENDER_EVENT, function($event) use($actual) {
@@ -49,7 +49,7 @@ class EventTriggeringRendererTest extends UnitTestCase {
     }
 
     public function testReturningRenderedValue() {
-        $dispatcher = new EventDispatcher();
+        $dispatcher = new Emitter();
         $renderer = new EventTriggeringRenderer($this->getMockRenderer('foobar'), $dispatcher);
 
         $this->assertSame('foobar', $renderer->render('some source'));
@@ -57,7 +57,7 @@ class EventTriggeringRendererTest extends UnitTestCase {
 
     public function testDecoratingRenderedOutputInAfterRenderEvent() {
         $mock = $this->getMockRenderer('foobar');
-        $dispatcher = new EventDispatcher();
+        $dispatcher = new Emitter();
         $dispatcher->addListener(EventTriggeringRenderer::AFTER_RENDER_EVENT, function($event) {
             $event->setOutput($event->getOutput() . ' + called from event');
         });

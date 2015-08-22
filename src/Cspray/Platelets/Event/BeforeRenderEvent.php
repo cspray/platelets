@@ -11,4 +11,12 @@ declare(strict_types=1);
 
 namespace Cspray\Platelets\Event;
 
-class BeforeRenderEvent extends RenderEvent {}
+use Cspray\Platelets\EventTriggeringRenderer;
+
+class BeforeRenderEvent extends RenderEvent {
+
+    public function getName() {
+        return EventTriggeringRenderer::BEFORE_RENDER_EVENT;
+    }
+
+}

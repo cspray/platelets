@@ -13,7 +13,7 @@ namespace Cspray\Platelets;
 
 use Cspray\Platelets\Event\AfterRenderEvent;
 use Cspray\Platelets\Event\BeforeRenderEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use League\Event\EmitterInterface;
 
 class EventTriggeringRenderer implements Renderer {
 
@@ -21,22 +21,22 @@ class EventTriggeringRenderer implements Renderer {
     const AFTER_RENDER_EVENT = 'platelets.after_render';
 
     private $renderer;
-    private $eventDispatcher;
+    private $emitter;
 
-    public function __construct(Renderer $renderer, EventDispatcherInterface $eventDispatcher) {
+    public function __construct(Renderer $renderer, EmitterInterface $emitter) {
         $this->renderer = $renderer;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->emitter = $emitter;;
     }
 
     public function render(string $source, Context $context = null) : string {
         $context = $context ?? new AdhocContext();
         $beforeRenderEvent = new BeforeRenderEvent($this, $context);
-        $this->eventDispatcher->dispatch(self::BEFORE_RENDER_EVENT, $beforeRenderEvent);
+        $this->emitter->emit($beforeRenderEvent);
 
         $output = $this->renderer->render($source, $context);
 
         $afterRenderEvent = new AfterRenderEvent($this, $context, $output);
-        $this->eventDispatcher->dispatch(self::AFTER_RENDER_EVENT, $afterRenderEvent);
+        $this->emitter->emit($afterRenderEvent);
 
         return $afterRenderEvent->getOutput();
     }

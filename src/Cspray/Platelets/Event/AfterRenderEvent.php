@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Cspray\Platelets\Event;
 
 use Cspray\Platelets\Context;
+use Cspray\Platelets\EventTriggeringRenderer;
 use Cspray\Platelets\Renderer;
 
 class AfterRenderEvent extends RenderEvent {
@@ -21,6 +22,10 @@ class AfterRenderEvent extends RenderEvent {
     public function __construct(Renderer $renderer, Context $context, string $output) {
         parent::__construct($renderer, $context);
         $this->output = $output;
+    }
+
+    public function getName() {
+        return EventTriggeringRenderer::AFTER_RENDER_EVENT;
     }
 
     public function getOutput() : string {

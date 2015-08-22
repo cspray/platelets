@@ -13,9 +13,9 @@ namespace Cspray\Platelets\Event;
 
 use Cspray\Platelets\Context;
 use Cspray\Platelets\Renderer;
-use Symfony\Component\EventDispatcher\Event as SymfonyEvent;
+use League\Event\Event;
 
-class RenderEvent extends SymfonyEvent {
+class RenderEvent extends Event {
 
     private $renderer;
     private $context;
