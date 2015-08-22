@@ -16,6 +16,12 @@ use PHPUnit_Framework_TestCase as UnitTestCase;
 
 class EventTriggeringRendererTest extends UnitTestCase {
 
+    public function setUp() {
+        if (!class_exists(Emitter::class)) {
+            $this->markTestSkipped('Cannot test without league/event installed');
+        }
+    }
+
     private function getMockRenderer(string $return = '') {
         $mock = $this->getMock(Renderer::class);
         $mock->expects($this->once())->method('render')->willReturn($return);
