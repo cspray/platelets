@@ -22,7 +22,7 @@ class TwoStepContext implements Context {
     }
 
     public function __call(string $method, array $args) {
-        return $this->_csprayRendererProperties['context']->$method($args);
+        return $this->_csprayRendererProperties['context']->$method(...$args);
     }
 
     public function __get(string $property) {
